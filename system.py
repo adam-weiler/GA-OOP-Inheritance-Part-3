@@ -39,6 +39,13 @@ class Planet(Body):
         self.day = day
         self.year = year
 
+    @classmethod
+    def all(self, system):
+        print(system)
+    
+
+
+
 class Star(Body):
     def __init__(self, name, mass, star_type):
         super().__init__(name, mass)
@@ -85,6 +92,8 @@ solar_system.add(a_body)
 
 
 print()
+print(f'{solar_system.bodies}')
+
 # print(f'{a_body.name} - {a_body.mass}')
 
 # print(f'{earth.name} - {earth.mass} - {earth.day} - {earth.year}')
@@ -97,3 +106,7 @@ print()
 
 for body in solar_system.bodies:
     print(body.name)
+
+
+
+Planet.all(solar_system)
