@@ -17,8 +17,16 @@ class System():
 
         # return celestial_body
 
+
+
     def total_mass(self):
-        return sum(self.bodies)
+        total_mass = 0
+
+        for body in self.bodies:
+            print(body.mass)
+            total_mass += body.mass
+
+        return total_mass
 
 
 
@@ -32,6 +40,13 @@ class Body():
         self.name = name
         self.mass = mass
         
+    # @classmethod
+    # def all(self, system):
+    #     print(system.bodies[1].name)
+
+
+
+
 
 class Planet(Body):
     def __init__(self, name, mass, day, year):
@@ -39,9 +54,7 @@ class Planet(Body):
         self.day = day
         self.year = year
 
-    @classmethod
-    def all(self, system):
-        print(system)
+    
     
 
 
@@ -64,19 +77,23 @@ solar_system = System()
 
 
 
-a_body = Body('A body', 100)
+
+
+a_body = Body('A body', 0)
 solar_system.add(a_body)
 
 
-earth = Planet('Earth', 42, 24, 365.4)
+earth = Planet('Earth', 6000000000000000000000000, 24, 365.4)
 solar_system.add(earth)
 
 
-sun = Star('Sun', '1.989 × 10^30 kg', 'G-type')
+sun = Star('Sun', 2000000000000000000000000000000, 'G-type')
 solar_system.add(sun)
 
 
-moon = Moon('Moon', 27, '7.35 x 1022 kg', earth)
+moon = Moon('Moon', 73500000000000000000000, '7.35 x 1022 kg', earth)
+solar_system.add(moon)
+solar_system.add(moon)
 solar_system.add(moon)
 solar_system.add(moon)
 solar_system.add(moon)
@@ -109,4 +126,19 @@ for body in solar_system.bodies:
 
 
 
-Planet.all(solar_system)
+print()
+
+# Planet.all(solar_system)
+
+# Star.all(solar_system)
+
+# Moon.all(solar_system)
+
+
+
+
+alpha_centauri = System()
+
+print()
+
+print(solar_system.total_mass())
