@@ -28,6 +28,14 @@ class Body():
     # def all(self, system):
     #     print(system.bodies[1].name)
 
+    @classmethod
+    def list_all(self, body_type):
+        for body in System.bodies: #Iterates through each body in System.bodies list.
+            if isinstance(body, body_type): #If current body is of body_type. ie: Planet.
+                print(body) #Prints the class-specific __str__ method.
+
+            # print(isinstance(body, body_type)) 
+
 
 
 
@@ -38,23 +46,26 @@ class Planet(Body):
         self.day = day
         self.year = year
 
-    @classmethod
-    def list_all(self):
-        for body in System.bodies:
-            # print(type(body))
-            print(body.name)
-            print(isinstance(body, self))
+    def __str__(self):
+        return f'-{self.name} : {self.day} hours per day - {self.year} days per year - weighs {self.mass} kg.'
 
-            # print(inspect.isclass(Planet))
+    # @classmethod
+    # def list_all(self):
+    #     for body in System.bodies:
+    #         # print(type(body))
+    #         print(body.name)
+    #         print(isinstance(body, self))
+
+    #         # print(inspect.isclass(Planet))
             
 
-            # isinstance()
-            # if inspect.isclass(Planet) == True:
-            #     print('yes')
-            # else:
-            #     print('no')
-            pass
-        # print(System.bodies[1].name)
+    #         # isinstance()
+    #         # if inspect.isclass(Planet) == True:
+    #         #     print('yes')
+    #         # else:
+    #         #     print('no')
+    #         pass
+    #     # print(System.bodies[1].name)
 
         
 
@@ -63,11 +74,14 @@ class Star(Body):
         super().__init__(name, mass)
         self.star_type = star_type
 
-    @classmethod
-    def list_all(self):
-        for body in System.bodies:
-            print(body.name)
-            print(isinstance(body, self))
+    def __str__(self):
+        return f'-{self.name} : {self.star_type} type star - weighs {self.mass} kg.'
+
+    # @classmethod
+    # def list_all(self):
+    #     for body in System.bodies:
+    #         print(body.name)
+    #         print(isinstance(body, self))
 
 class Moon(Body):
     def __init__(self, name, mass, month, planet):
@@ -75,11 +89,14 @@ class Moon(Body):
         self.month = month
         self.planet = planet
 
-    @classmethod
-    def list_all(self):
-        for body in System.bodies:
-            print(body.name)
-            print(isinstance(body, self))
+    def __str__(self):
+        return f'-{self.name} : {self.month} days in a month - rotates around planet {self.planet.name} - weighs {self.mass} kg.'
+
+    # @classmethod
+    # def list_all(self):
+    #     for body in System.bodies:
+    #         print(body.name)
+    #         print(isinstance(body, self))
 
 
 
@@ -107,16 +124,27 @@ print(solar_system.add(mars)) #It won't let you add the same celestial body more
 sun = Star('Sun', 1.989 * 10**30, 'G-type')
 print(solar_system.add(sun))
 
-moon = Moon('Moon', 7.35 * 10**22, '7.35 x 1022 kg', earth)
+moon = Moon('Moon', 7.35 * 10**22, 27, earth)
 print(solar_system.add(moon))
 
 
 
-Planet.list_all()
-print()
-Star.list_all()
-print()
-Moon.list_all()
+# Planet.list_all()
+# print()
+# Star.list_all()
+# print()
+# Moon.list_all()
+
+
+
+print('A list of Planets:')
+Body.list_all(Planet)
+print('\nA list of Stars:')
+Body.list_all(Star)
+print('\nA list of Moons:')
+Body.list_all(Moon)
+
+
 
 # solar_system.add(a_body)
 # solar_system.add(a_body)
@@ -140,10 +168,10 @@ Moon.list_all()
 
 # print(f'{moon.name} - {moon.mass} - {moon.month} - {moon.planet.name}')
 
-print()
+# print()
 
-for body in solar_system.bodies:
-    print(body.name)
+# for body in solar_system.bodies:
+#     print(body.name)
 
 
 
