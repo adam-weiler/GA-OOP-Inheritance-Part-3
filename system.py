@@ -2,40 +2,24 @@ class System():
     bodies = []
     
     def add(self, celestial_body):
-        # self.bodies.append(celestial_body)
-
-
-        # for body in self.bodies:
         if celestial_body not in self.bodies: #Checks if celestial_body is not in the bodies list yet.
             self.bodies.append(celestial_body)
-
-
-        # body not in self.bodies:
-        #     seen.add(body)
-        #     item_list.append(body)
-            pass
-
-        # return celestial_body
-
+            return f'Adding {celestial_body.name} to the system.\n'
+        else:
+            return f'You can\'t add {celestial_body.name} again.\n'
 
 
     def total_mass(self):
         total_mass = 0
 
         for body in self.bodies:
-            print(body.mass)
+            # print(body.mass)
             total_mass += body.mass
 
         return total_mass
 
 
-
-
-
-
-
 class Body():
-
     def __init__(self, name, mass):
         self.name = name
         self.mass = mass
@@ -54,15 +38,36 @@ class Planet(Body):
         self.day = day
         self.year = year
 
-    
-    
+    @classmethod
+    def list_all(self):
+        for body in System.bodies:
+            # print(type(body))
+            print(body.name)
+            print(isinstance(body, self))
 
+            # print(inspect.isclass(Planet))
+            
 
+            # isinstance()
+            # if inspect.isclass(Planet) == True:
+            #     print('yes')
+            # else:
+            #     print('no')
+            pass
+        # print(System.bodies[1].name)
+
+        
 
 class Star(Body):
     def __init__(self, name, mass, star_type):
         super().__init__(name, mass)
         self.star_type = star_type
+
+    @classmethod
+    def list_all(self):
+        for body in System.bodies:
+            print(body.name)
+            print(isinstance(body, self))
 
 class Moon(Body):
     def __init__(self, name, mass, month, planet):
@@ -70,46 +75,62 @@ class Moon(Body):
         self.month = month
         self.planet = planet
 
+    @classmethod
+    def list_all(self):
+        for body in System.bodies:
+            print(body.name)
+            print(isinstance(body, self))
+
 
 
 
 solar_system = System()
 
+# a_body = Body('A body', 0)
+# solar_system.add(a_body)
+
+mercury = Planet('Mercury', 3.285 * 10**23, 1408, 87.969)
+# solar_system.add(mercury)
+print(solar_system.add(mercury))
+
+venus = Planet('Venus', 4.867 * 10**24, 5832, 224.7)
+# solar_system.add(venus)
+print(solar_system.add(venus))
+
+earth = Planet('Earth', 5.972 * 10**24, 24, 365.2564)
+print(solar_system.add(earth))
+
+mars = Planet('Mars', 6.39 * 10**23, 25, 687)
+print(solar_system.add(mars))
+print(solar_system.add(mars)) #It won't let you add the same celestial body more than once.
+
+sun = Star('Sun', 1.989 * 10**30, 'G-type')
+print(solar_system.add(sun))
+
+moon = Moon('Moon', 7.35 * 10**22, '7.35 x 1022 kg', earth)
+print(solar_system.add(moon))
 
 
 
-
-a_body = Body('A body', 0)
-solar_system.add(a_body)
-
-
-earth = Planet('Earth', 6000000000000000000000000, 24, 365.4)
-solar_system.add(earth)
-
-
-sun = Star('Sun', 2000000000000000000000000000000, 'G-type')
-solar_system.add(sun)
-
-
-moon = Moon('Moon', 73500000000000000000000, '7.35 x 1022 kg', earth)
-solar_system.add(moon)
-solar_system.add(moon)
-solar_system.add(moon)
-solar_system.add(moon)
-solar_system.add(moon)
-solar_system.add(a_body)
-solar_system.add(a_body)
-solar_system.add(a_body)
-
-
-
-
-
-
-
-
+Planet.list_all()
 print()
-print(f'{solar_system.bodies}')
+Star.list_all()
+print()
+Moon.list_all()
+
+# solar_system.add(a_body)
+# solar_system.add(a_body)
+# solar_system.add(a_body)
+
+
+
+
+
+
+
+
+# print()
+# print(f'{solar_system.bodies}')
 
 # print(f'{a_body.name} - {a_body.mass}')
 
@@ -141,4 +162,4 @@ alpha_centauri = System()
 
 print()
 
-print(solar_system.total_mass())
+print(f'Total mass: {solar_system.total_mass()} kg')
