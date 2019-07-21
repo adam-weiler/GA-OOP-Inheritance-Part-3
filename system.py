@@ -1,13 +1,16 @@
 class System():
+    all_bodies = [] #Stores all bodies from every solar system.
+
     def __init__(self, name):
         self.name = name
-        self.bodies = []
+        self.bodies = [] #Stores only bodies from this solar system.
 
     def __str__(self):
         return f'The {self.name} system.'
     
     def add(self, celestial_body):
         if celestial_body not in self.bodies: #Checks if celestial_body is not in the bodies list yet.
+            System.all_bodies.append(celestial_body)
             self.bodies.append(celestial_body)
             return f'Adding {celestial_body.name} to the {self.name} system.'
         else:
@@ -18,12 +21,18 @@ class System():
             if isinstance(body, body_type): #If current body is of body_type. ie: Planet.
                 print(body) #Prints the class-specific __str__ method.
 
-    def total_mass(self):
+    @classmethod
+    def total_mass(cls):
         total_mass = 0
 
-        for body in self.bodies:
+        # print(cls.all_bodies)
+        for body in cls.all_bodies:
             # print(body.name)
             total_mass += body.mass
+
+        # for body in self.bodies:
+            # print(body.name)
+            # total_mass += body.mass
 
         return total_mass
 
@@ -75,7 +84,7 @@ class Moon(Body):
         self.planet = planet
 
     def __str__(self):
-        return f'-{self.name} : {self.month} days in a month - rotates around planet {self.planet.name} - weighs {self.mass} kg.'
+        return f'-{self.name} : {self.month} days in a month - in orbit around {self.planet.name} - weighs {self.mass} kg.'
 
 
 
@@ -100,12 +109,20 @@ print(solar_system.add(mars)) #It won't let you add the same celestial body more
 print(solar_system.add(mars))
 print()
 
+jupiter = Planet('Jupiter', 1.898 * 10 ** 27, 10, 4332.59)
+print(solar_system.add(jupiter))
+print()
+
 sun = Star('Sun', 1.989 * 10**30, 'G-type')
 print(solar_system.add(sun))
 print()
 
 moon = Moon('Moon', 7.35 * 10**22, 27, earth)
 print(solar_system.add(moon))
+print()
+
+europa = Moon('Europa', 4.7998 * 10 ** 22, 3.5, jupiter)
+print(solar_system.add(europa))
 print()
 
 print('A list of Planets:')
@@ -122,8 +139,6 @@ print('\n\n')
 
 
 
-
-
 alpha_centauri = System('Alpha Centauri')
 print(alpha_centauri)
 
@@ -135,7 +150,6 @@ proxima_centauri = Star('Proxima Centauri', 2.446 * 10**29, 'M-type')
 print(alpha_centauri.add(proxima_centauri))
 print()
 
-
 print('A list of Planets:')
 alpha_centauri.list_all(Planet)
 print()
@@ -146,6 +160,6 @@ print()
 
 print('A list of Moons:')
 alpha_centauri.list_all(Moon)
-print()
+print('\n')
 
-print(f'Total mass: {solar_system.total_mass()} kg')
+print(f'Total mass of all systems: {System.total_mass()} kg')
